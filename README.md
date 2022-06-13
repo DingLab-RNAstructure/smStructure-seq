@@ -2,7 +2,7 @@
 
 - We start with the raw pacbio subreads as the bam and corresponding pbi index files to generate the Single-Molecule Consensus Reads(HiFi Reads)  
 
-- Generate consensus reads using CCS version 4.2.0(https://github.com/PacificBiosciences/ccs) with minimum 10 passes( Note we have tried different number of passes varying from 3 to 10). 
+- Generate consensus reads using CCS version 4.2.0(https://github.com/PacificBiosciences/ccs) with minimum 10 passes
 
 - External tools that we need for the raw reads analysis namely, pbccs, blasr, lima and bam2fasta can be optionally installed inside the containers through the bioconda channel.
 
