@@ -89,10 +89,61 @@ Step 7: Merge bit vectors
 - It gives us an opportunity to compare the replicates or samples
 - Here we merged the pooled samples using the script `merge_bitvectors.py` 
 
-
 ```
 python3 merge_bitvectors.py   --bit_file R1_5p.bit   R2_5p.bit    --output_file   merged_R1_R2.bit
 
 ```
+
+Step 8: Context Free RNA folding
+--------------------------------
+
+- We use context free RNA folding with contrafold
+- Using the ContraFold version 2.02 (http://contra.stanford.edu/contrafold/contrafold_v2_02.tar.gz)
+- The folded files were further proceessed through the forgi tool to get the Forging encoding the corresponding secondary structure as denoted as Forgi vectors
+- The bespoke script `fold-contrafold-uniq-bits-vectors.py` fold and generate Forgi secondary structure representation for all the transcripts
+- Forgi tool and the associated utility rnaConvert was used(https://github.com/ViennaRNA/forgi)
+- Corresponding script for the conversion of folded files to the dotracket formatted is `fold2dotbracketFasta.py` 
+
+```
+# run contrafold on merged_R1_R2.bit followed by forgi (https://github.com/ViennaRNA/forgi/blob/master/examples/rnaConvert.py)
+python3 fold-contrafold-uniq-bits-vectors.py  --bit_file merged_R1_R2.bit --reference_file  cool6.fasta --transcript COOLAIR3 --size_file  sizer.tab
+```
+
+Step 9: PCA Projection
+----------------------
+
+- We use principal component analysis on the Forgi vectors using Scikit-learn: Machine Learning in Python(Pedregosa et al., JMLR 12, pp. 2825-2830, 2011)
+- The projection helps us to view the grouping and separation the latent classes or configuration of structures
+- Our bespoke script `run-pca-on-forgi-vectors.py` gives an output as a png and pdf format along with csv file for further manual insepction. 
+ 
+
+```
+python3  run-pca-on-forgi-vectors.py --input_file forgi-vect-ser.txt --tag COOLAIR3_R1_R2-forgi-pca  --csv_file COOLAIR3_R1_R2-forgi-pca.csv
+```
+
+Step 10: K-Means clustering
+---------------------------
+
+- Given a desired number of clusters we perform K-means clustering on the PCA projection using Scikit-learn
+- User can specify the number of clusters,  we have set the default value to three 
+- Clusters 1, 2 3 are coloured in the plot as green, orange and pink respectively.
+- Final outputs will be a figure and a csv for this example `COOLAIR3_R1_R2-clusters.png`  and `COOLAIR3_R1_R2-clusters.csv`, repectively.
+
+
+```
+python3  draw-kmeans-clusters.py --input_file COOLAIR3_R1_R2-forgi-pca.csv --tag  COOLAIR3_R1_R2 --num_clusters 3
+
+#inputs:
+# input_file = COOLAIR3_R1_R2-forgi-pca.csv
+# tag = COOLAIR3_R1_R2
+# num_clusters = 3
+
+#final outputs:
+# - COOLAIR3_R1_R2-clusters.csv
+# - COOLAIR3_R1_R2-clusters.png
+# - COOLAIR3_R1_R2-clusters.pdf
+```
+
+
 
 
