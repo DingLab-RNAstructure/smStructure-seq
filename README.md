@@ -133,15 +133,15 @@ Step 10: K-Means clustering
 ```
 python3  draw-kmeans-clusters.py --input_file COOLAIR3_R1_R2-forgi-pca.csv --tag  COOLAIR3_R1_R2 --num_clusters 3
 
-#inputs:
-# input_file = COOLAIR3_R1_R2-forgi-pca.csv
-# tag = COOLAIR3_R1_R2
-# num_clusters = 3
+inputs:
+ - input_file = COOLAIR3_R1_R2-forgi-pca.csv
+ - tag = COOLAIR3_R1_R2
+ - num_clusters = 3
 
-#final outputs:
-# - COOLAIR3_R1_R2-clusters.csv
-# - COOLAIR3_R1_R2-clusters.png
-# - COOLAIR3_R1_R2-clusters.pdf
+final outputs:
+ - COOLAIR3_R1_R2-clusters.csv
+ - COOLAIR3_R1_R2-clusters.png
+ - COOLAIR3_R1_R2-clusters.pdf
 ```
 
 
